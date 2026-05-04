@@ -3,56 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netherite Potion | Admin Panel</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Netherite Potion PvP</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --bg: #0a0a0b; --panel: #121214; --accent: #8b5cf6; --gold: #FFD700; }
+        body { background: var(--bg); color: white; font-family: 'Inter', sans-serif; margin: 0; }
+        header { padding: 20px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
+        .main-logo { font-family: 'Orbitron'; color: var(--accent); text-shadow: 0 0 15px var(--accent); margin: 0; }
+        .admin-btn { background: #222; color: white; border: 1px solid #444; padding: 8px 15px; cursor: pointer; border-radius: 5px; }
+        
+        /* Kit Kartları */
+        .kit-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; padding: 40px 5%; }
+        .kit-card { background: var(--panel); border: 1px solid #222; padding: 25px; text-align: center; border-radius: 12px; cursor: pointer; transition: 0.3s; }
+        .kit-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .kit-card img { width: 50px; height: 50px; margin-bottom: 10px; object-fit: contain; }
+        
+        /* Admin Modal */
+        #adminPanel { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; }
+        .modal-content { background: #1a1a1b; width: 90%; max-width: 350px; margin: 50px auto; padding: 25px; border-radius: 15px; border: 1px solid var(--accent); }
+        .modal-content input, .modal-content select { width: 100%; padding: 10px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; box-sizing: border-box; }
+        .save-btn { width: 100%; padding: 12px; background: var(--accent); border: none; color: white; font-weight: bold; cursor: pointer; border-radius: 5px; }
+
+        /* Sıralama Sütunları */
+        .tier-columns { display: flex; gap: 15px; overflow-x: auto; padding: 20px; }
+        .t-col { background: #161617; min-width: 200px; border-radius: 10px; padding: 15px; border-top: 3px solid var(--accent); flex: 1; }
+        .t-col h3 { text-align: center; color: var(--accent); font-size: 16px; margin-top: 0; }
+        .player-item { background: #222; padding: 10px; margin: 8px 0; border-radius: 5px; display: flex; justify-content: space-between; font-size: 14px; }
+        .back-btn { background: var(--accent); color: white; border: none; padding: 10px 20px; cursor: pointer; margin: 20px; border-radius: 5px; }
+    </style>
 </head>
 <body>
+
     <header>
-        <div class="logo-area">
+        <div>
             <h1 class="main-logo">NETHERITE POTION</h1>
-            <p class="sub-logo">PvP Community Admin System</p>
+            <small style="color:#666; letter-spacing:2px;">COMMUNITY SYSTEM</small>
         </div>
-        <button onclick="toggleAdminPanel()" class="admin-access-btn">Admin Girişi</button>
+        <button onclick="toggleAdmin()" class="admin-btn">Admin Girişi</button>
     </header>
 
-    <nav class="kit-grid" id="kitMenu">
-        </nav>
+    <div id="kitMenu" class="kit-grid"></div>
 
-    <div id="adminPanel" class="admin-modal">
+    <div id="adminPanel">
         <div class="modal-content">
-            <span class="close" onclick="toggleAdminPanel()">&times;</span>
-            <h2>Oyunçu Əlavə Et</h2>
+            <h2 style="margin-top:0">Oyunçu Əlavə Et</h2>
             <input type="text" id="pName" placeholder="Oyunçu Adı">
-            <select id="pRegion">
-                <option value="EU">EU</option>
-                <option value="NA">NA</option>
-                <option value="AS">AS</option>
-            </select>
+            <select id="pRegion"><option>EU</option><option>NA</option><option>AS</option></select>
             <select id="pKit">
-                <option value="NethPot">NethPot</option>
-                <option value="Sword">Sword</option>
-                <option value="Axe">Axe</option>
-                <option value="Uhc">Uhc</option>
-                <option value="Mace">Mace</option>
-                <option value="Potion">Potion</option>
-                <option value="Crystal">Crystal</option>
-                <option value="SMP">SMP</option>
+                <option>NethPot</option><option>Sword</option><option>Axe</option>
+                <option>Uhc</option><option>Mace</option><option>Potion</option>
+                <option>Crystal</option><option>SMP</option>
             </select>
             <select id="pTier">
-                <option value="HT1">HT1</option><option value="LT1">LT1</option>
-                <option value="HT2">HT2</option><option value="LT2">LT2</option>
-                <option value="HT3">HT3</option><option value="LT3">LT3</option>
-                <option value="HT4">HT4</option><option value="LT4">LT4</option>
-                <option value="HT5">HT5</option><option value="LT5">LT5</option>
+                <option>HT1</option><option>LT1</option><option>HT2</option><option>LT2</option>
+                <option>HT3</option><option>LT3</option><option>HT4</option><option>LT4</option>
+                <option>HT5</option><option>LT5</option>
             </select>
-            <button onclick="savePlayer()" class="save-btn">Siyahıya Əlavə Et</button>
+            <button onclick="savePlayer()" class="save-btn">Yadda Saxla</button>
+            <button onclick="toggleAdmin()" style="background:none; color:#666; border:none; width:100%; margin-top:10px; cursor:pointer;">Ləğv Et</button>
         </div>
     </div>
 
     <section id="rankingSection" style="display:none;">
-        <button onclick="backToMenu()" class="back-btn">← Geri Qayıt</button>
-        <h2 id="currentKitTitle">Kit Adı</h2>
+        <button onclick="backToMenu()" class="back-btn">← Geri</button>
+        <h2 id="currentKitTitle" style="text-align:center; color:var(--accent);"></h2>
         <div class="tier-columns">
             <div class="t-col"><h3>Tier 1</h3><div id="t1-list"></div></div>
             <div class="t-col"><h3>Tier 2</h3><div id="t2-list"></div></div>
@@ -62,6 +76,69 @@
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <script>
+        const kitData = {
+            "NethPot": "1000189822.jpg", "Sword": "1000189824.jpg", "Axe": "1000189826.jpg",
+            "Uhc": "1000189828.jpg", "Mace": "1000189830.jpg", "Potion": "1000189832.jpg",
+            "Crystal": "1000189834.jpg", "SMP": "1000189836.jpg"
+        };
+
+        const menu = document.getElementById('kitMenu');
+        const players = JSON.parse(localStorage.getItem('pvpData')) || [];
+
+        function loadMenu() {
+            menu.innerHTML = "";
+            Object.keys(kitData).forEach(kit => {
+                menu.innerHTML += `
+                    <div class="kit-card" onclick="openKit('${kit}')">
+                        <img src="${kitData[kit]}" onerror="this.src='https://via.placeholder.com/50/222/fff?text=KIT'">
+                        <h3>${kit}</h3>
+                    </div>`;
+            });
+        }
+
+        function toggleAdmin() {
+            const p = document.getElementById('adminPanel');
+            p.style.display = p.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function savePlayer() {
+            const name = document.getElementById('pName').value;
+            if(!name) return alert("Ad yazın!");
+            players.push({
+                name,
+                region: document.getElementById('pRegion').value,
+                kit: document.getElementById('pKit').value,
+                tier: document.getElementById('pTier').value
+            });
+            localStorage.setItem('pvpData', JSON.stringify(players));
+            alert("Əlavə edildi!");
+            toggleAdmin();
+            location.reload(); 
+        }
+
+        function openKit(kit) {
+            menu.style.display = 'none';
+            document.getElementById('rankingSection').style.display = 'block';
+            document.getElementById('currentKitTitle').innerText = kit;
+            for(let i=1; i<=5; i++) document.getElementById(`t${i}-list`).innerHTML = "";
+
+            players.filter(p => p.kit === kit).forEach(p => {
+                const tNum = p.tier.replace(/\D/g, "");
+                document.getElementById(`t${tNum}-list`).innerHTML += `
+                    <div class="player-item">
+                        <span>${p.name}</span>
+                        <b style="color:var(--gold)">${p.tier}</b>
+                    </div>`;
+            });
+        }
+
+        function backToMenu() {
+            menu.style.display = 'grid';
+            document.getElementById('rankingSection').style.display = 'none';
+        }
+
+        window.onload = loadMenu;
+    </script>
 </body>
 </html>
