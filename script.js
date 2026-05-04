@@ -9,62 +9,68 @@ const kitData = {
     "SMP": "1000189836.jpg"
 };
 
-// Kit Menyunun Yaradılması
 const kitMenu = document.getElementById('kitMenu');
-Object.keys(kitData).forEach(kit => {
-    kitMenu.innerHTML += `
-        <div class="kit-card" onclick="openKit('${kit}')">
-            <img src="${kitData[kit]}" alt="${kit}">
-            <h3>${kit}</h3>
-        </div>
-    `;
-});
+
+// Kitləri ekrana çıxarmaq
+function loadMenu() {
+    kitMenu.innerHTML = "";
+    Object.keys(kitData).forEach(kit => {
+        kitMenu.innerHTML += `
+            <div class="kit-card" onclick="openKit('${kit}')">
+                <img src="${kitData[kit]}" alt="${kit}" onerror="this.src='https://via.placeholder.com/60?text=Logo'">
+                <h3>${kit}</h3>
+            </div>
+        `;
+    });
+}
+
+// Səhifə yüklənəndə menyunu aç
+window.onload = loadMenu;
 
 let players = JSON.parse(localStorage.getItem('pvpPlayers')) || [];
 
 function toggleAdminPanel() {
     const panel = document.getElementById('adminPanel');
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
 }
 
 function savePlayer() {
-    const newPlayer = {
-        name: document.getElementById('pName').value,
-        region: document.getElementById('pRegion').value,
-        kit: document.getElementById('pKit').value,
-        tier: document.getElementById('pTier').value
-    };
+    const name = document.getElementById('pName').value;
+    const region = document.getElementById('pRegion').value;
+    const kit = document.getElementById('pKit').value;
+    const tier = document.getElementById('pTier').value;
 
-    if(!newPlayer.name) return alert("Ad yazın!");
+    if(!name) { alert("Zəhmət olmasa oyunçu adını yazın!"); return; }
     
-    players.push(newPlayer);
+    players.push({name, region, kit, tier});
     localStorage.setItem('pvpPlayers', JSON.stringify(players));
     alert("Oyunçu əlavə edildi!");
+    document.getElementById('pName').value = "";
     toggleAdminPanel();
 }
 
 function openKit(kitName) {
     document.getElementById('kitMenu').style.display = 'none';
     document.getElementById('rankingSection').style.display = 'block';
-    document.getElementById('currentKitTitle').innerText = kitName + " Sıralaması";
+    document.getElementById('currentKitTitle').innerText = kitName;
     
-    // Tierləri təmizlə
     for(let i=1; i<=5; i++) document.getElementById(`t${i}-list`).innerHTML = "";
 
-    // Oyunçuları yerləşdir
     players.filter(p => p.kit === kitName).forEach(p => {
-        let tNum = p.tier.match(/\d/)[0]; // HT1 -> 1
-        document.getElementById(`t${tNum}-list`).innerHTML += `
-            <div class="player-item">
-                <span>${p.name}</span>
-                <span style="color:#4ade80">${p.region}</span>
-                <b class="${p.tier.includes('1') ? 'gold' : ''}">${p.tier}</b>
-            </div>
-        `;
+        let tNum = p.tier.replace(/\D/g, ""); // HT1 -> 1
+        if(tNum >= 1 && tNum <= 5) {
+            document.getElementById(`t${tNum}-list`).innerHTML += `
+                <div class="player-item">
+                    <span>${p.name}</span>
+                    <small style="color:#4ade80">${p.region}</small>
+                    <b class="${p.tier.includes('1') ? 'gold' : ''}">${p.tier}</b>
+                </div>
+            `;
+        }
     });
 }
 
 function backToMenu() {
     document.getElementById('kitMenu').style.display = 'grid';
     document.getElementById('rankingSection').style.display = 'none';
-}
+                                                   }
