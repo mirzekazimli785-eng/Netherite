@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netherite Potion PvP Community</title>
+    <title>Netherite Potion | Admin Panel</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
 </head>
@@ -11,28 +11,57 @@
     <header>
         <div class="logo-area">
             <h1 class="main-logo">NETHERITE POTION</h1>
-            <p class="sub-logo">PvP Community</p>
+            <p class="sub-logo">PvP Community Admin System</p>
         </div>
-        <div class="nav-area">
-            <a href="https://discord.gg/kNNQYtMd4z" target="_blank" class="discord-btn">DISCORD</a>
-            <div class="kit-tabs">
-                <button onclick="view('overall')" class="active">Overall</button>
-                <button onclick="view('NethPot')">NethPot</button>
-                <button onclick="view('Sword')">Sword</button>
-                <button onclick="view('Axe')">Axe</button>
-                <button onclick="view('Uhc')">Uhc</button>
-                <button onclick="view('Mace')">Mace</button>
-                <button onclick="view('Potion')">Potion</button>
-                <button onclick="view('Crystal')">Crystal</button>
-                <button onclick="view('SMP')">SMP</button>
-            </div>
-        </div>
+        <button onclick="toggleAdminPanel()" class="admin-access-btn">Admin Girişi</button>
     </header>
 
-    <main id="content">
-        </main>
+    <nav class="kit-grid" id="kitMenu">
+        </nav>
+
+    <div id="adminPanel" class="admin-modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleAdminPanel()">&times;</span>
+            <h2>Oyunçu Əlavə Et</h2>
+            <input type="text" id="pName" placeholder="Oyunçu Adı">
+            <select id="pRegion">
+                <option value="EU">EU</option>
+                <option value="NA">NA</option>
+                <option value="AS">AS</option>
+            </select>
+            <select id="pKit">
+                <option value="NethPot">NethPot</option>
+                <option value="Sword">Sword</option>
+                <option value="Axe">Axe</option>
+                <option value="Uhc">Uhc</option>
+                <option value="Mace">Mace</option>
+                <option value="Potion">Potion</option>
+                <option value="Crystal">Crystal</option>
+                <option value="SMP">SMP</option>
+            </select>
+            <select id="pTier">
+                <option value="HT1">HT1</option><option value="LT1">LT1</option>
+                <option value="HT2">HT2</option><option value="LT2">LT2</option>
+                <option value="HT3">HT3</option><option value="LT3">LT3</option>
+                <option value="HT4">HT4</option><option value="LT4">LT4</option>
+                <option value="HT5">HT5</option><option value="LT5">LT5</option>
+            </select>
+            <button onclick="savePlayer()" class="save-btn">Siyahıya Əlavə Et</button>
+        </div>
+    </div>
+
+    <section id="rankingSection" style="display:none;">
+        <button onclick="backToMenu()" class="back-btn">← Geri Qayıt</button>
+        <h2 id="currentKitTitle">Kit Adı</h2>
+        <div class="tier-columns">
+            <div class="t-col"><h3>Tier 1</h3><div id="t1-list"></div></div>
+            <div class="t-col"><h3>Tier 2</h3><div id="t2-list"></div></div>
+            <div class="t-col"><h3>Tier 3</h3><div id="t3-list"></div></div>
+            <div class="t-col"><h3>Tier 4</h3><div id="t4-list"></div></div>
+            <div class="t-col"><h3>Tier 5</h3><div id="t5-list"></div></div>
+        </div>
+    </section>
 
     <script src="script.js"></script>
 </body>
 </html>
-
