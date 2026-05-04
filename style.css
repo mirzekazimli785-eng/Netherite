@@ -1,0 +1,53 @@
+:root {
+    --bg: #0d0d0e;
+    --card-bg: #161617;
+    --accent: #8b5cf6;
+    --text: #eeeeee;
+    --gold: #FFD700;
+    --silver: #C0C0C0;
+    --bronze: #CD7F32;
+    --gray: #808080;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 15px;
+    line-height: 1.6;
+}
+
+/* Sol Üst Loqo Dekorasiyası */
+.logo-area {
+    margin-bottom: 30px;
+}
+
+.main-logo {
+    font-family: 'Orbitron', sans-serif;
+    color: var(--accent);
+    margin: 0;
+    font-size: 26px;
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+}
+
+.sub-logo {
+    font-size: 12px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-top: -5px;
+}
+
+/* Discord Düyməsi */
+.discord-btn {
+    display: inline-block;
+    background: #5865F2;
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-
+      
