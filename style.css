@@ -1,53 +1,71 @@
 :root {
-    --bg: #0d0d0e;
-    --card-bg: #161617;
+    --bg: #0a0a0b;
+    --panel: #121214;
     --accent: #8b5cf6;
-    --text: #eeeeee;
     --gold: #FFD700;
-    --silver: #C0C0C0;
-    --bronze: #CD7F32;
-    --gray: #808080;
 }
 
 body {
-    background-color: var(--bg);
-    color: var(--text);
+    background: var(--bg);
+    color: white;
     font-family: 'Inter', sans-serif;
     margin: 0;
-    padding: 15px;
-    line-height: 1.6;
+    overflow-x: hidden;
 }
 
-/* Sol Üst Loqo Dekorasiyası */
-.logo-area {
-    margin-bottom: 30px;
+header {
+    padding: 20px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.5);
 }
 
-.main-logo {
-    font-family: 'Orbitron', sans-serif;
-    color: var(--accent);
-    margin: 0;
-    font-size: 26px;
-    letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+.main-logo { font-family: 'Orbitron'; color: var(--accent); text-shadow: 0 0 15px var(--accent); }
+
+/* Kit Grid - Bütün ekranı tutan */
+.kit-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 40px 5%;
 }
 
-.sub-logo {
-    font-size: 12px;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: -5px;
+.kit-card {
+    background: var(--panel);
+    border: 1px solid #222;
+    padding: 30px;
+    text-align: center;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* Discord Düyməsi */
-.discord-btn {
-    display: inline-block;
-    background: #5865F2;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: bold;
-    margin-
-      
+.kit-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-10px);
+    background: #1a1a1d;
+}
+
+.kit-card img { width: 60px; margin-bottom: 15px; }
+
+/* Admin Modal */
+.admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; }
+.modal-content { background: #1a1a1b; width: 350px; margin: 100px auto; padding: 30px; border-radius: 15px; border: 1px solid var(--accent); }
+.modal-content input, .modal-content select { width: 100%; padding: 10px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; }
+
+/* Tier Columns */
+.tier-columns { display: flex; gap: 15px; overflow-x: auto; padding: 20px; }
+.t-col { background: #161617; min-width: 220px; border-radius: 10px; padding: 15px; border-top: 3px solid var(--accent); }
+.t-col h3 { text-align: center; color: var(--accent); border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+.player-item {
+    background: #222;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-btn { background: var(--accent); color: white; border: none; padding: 10px 20px; cursor: pointer; margin: 20px; border-radius: 5px; }
